@@ -60,7 +60,8 @@
 
 <script>
 
-  window.addEventListener('keydown', function (e) {
+
+  function playsound(e) {
     const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
     if(!audio) return; //evitar que a funcao fique executando junta com outras
 
@@ -72,7 +73,7 @@
     key.classList.add('playing');
 
     audio.play();
-  });
+  }
 
   function removeTransition(e){
     // aqui vai desconsiderar a transicao se nao for do tipo 'transform'
@@ -85,6 +86,8 @@
 
   const keys = document.querySelectorAll('.key');
   keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+  window.addEventListener('keydown', playsound);
 
 </script>
 
