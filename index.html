@@ -64,11 +64,27 @@
     const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
     if(!audio) return; //evitar que a funcao fique executando junta com outras
 
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+
     // volta para o inicio do audio
     audio.currentTime = 0;
 
+    key.classList.add('playing');
+
     audio.play();
   });
+
+  function removeTransition(e){
+    // aqui vai desconsiderar a transicao se nao for do tipo 'transform'
+    if(e.propertyName!=='transform') return;
+
+    // Aqui consideramos 'this' como a key, ou seja a div com classe key, porque
+    // esta funcao esta sendo chamada em um listener a partir da key
+    this.classList.remove('playing');
+  }
+
+  const keys = document.querySelectorAll('.key');
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
 
 </script>
 
